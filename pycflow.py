@@ -18,7 +18,7 @@ from typing import Dict, Set, List, Tuple
 
 
 class CallFlowAnalyzer(ast.NodeVisitor):
-    """AST 訪問者,用於分析函數調用關係"""
+    """AST 訪問者，用於分析函數調用關係"""
     
     def __init__(self, filename: str):
         self.filename = filename
@@ -136,7 +136,7 @@ class PyCallFlow:
         打印調用樹
         
         Args:
-            root_function: 根函數名稱,None 則顯示所有頂層函數
+            root_function: 根函數名稱，None 則顯示所有頂層函數
             max_depth: 最大顯示深度
             show_line_numbers: 是否顯示行號
             reverse: 反向顯示（誰調用了這個函數）
@@ -241,7 +241,7 @@ class PyCallFlow:
         visited.remove(func_name)
     
     def export_dot(self, output_file: str = "callgraph.dot"):
-        """導出 Graphviz DOT 格式,可用 graphviz 生成圖片"""
+        """導出 Graphviz DOT 格式，可用 graphviz 生成圖片"""
         with open(output_file, 'w', encoding='utf-8') as f:
             f.write("digraph CallGraph {\n")
             f.write("    rankdir=LR;\n")
