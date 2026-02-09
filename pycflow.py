@@ -18,7 +18,7 @@ from typing import Dict, Set, List, Tuple
 
 
 class CallFlowAnalyzer(ast.NodeVisitor):
-    """AST 訪問者,用於分析函數調用關係"""
+    """AST 訪問者，用於分析函數調用關係"""
     
     def __init__(self, filename: str):
         self.filename = filename
@@ -35,7 +35,7 @@ class CallFlowAnalyzer(ast.NodeVisitor):
     
     def visit_FunctionDef(self, node: ast.FunctionDef):
         """訪問函數定義"""
-        # 構建完整的函數名稱(包含類別)
+        # 構建完整的函數名稱（包含類別）
         if self.class_context:
             func_name = f"{'.'.join(self.class_context)}.{node.name}"
         else:
@@ -54,7 +54,7 @@ class CallFlowAnalyzer(ast.NodeVisitor):
         self.current_function = outer_function
     
     def visit_AsyncFunctionDef(self, node: ast.AsyncFunctionDef):
-        """訪問異步函數定義(處理方式與普通函數相同)"""
+        """訪問異步函數定義（處理方式與普通函數相同）"""
         self.visit_FunctionDef(node)
     
     def visit_Call(self, node: ast.Call):
@@ -136,10 +136,10 @@ class PyCallFlow:
         打印調用樹
         
         Args:
-            root_function: 根函數名稱,None 則顯示所有頂層函數
+            root_function: 根函數名稱，None 則顯示所有頂層函數
             max_depth: 最大顯示深度
             show_line_numbers: 是否顯示行號
-            reverse: 反向顯示(誰調用了這個函數)
+            reverse: 反向顯示（誰調用了這個函數）
         """
         if reverse:
             self._print_reverse_tree(root_function, show_line_numbers)
@@ -151,7 +151,7 @@ class PyCallFlow:
                 return
             self._print_tree(root_function, 0, set(), max_depth, show_line_numbers)
         else:
-            # 找出所有頂層函數(沒有被其他函數調用的)
+            # 找出所有頂層函數（沒有被其他函數調用的）
             all_called = set()
             for callees in self.call_graph.values():
                 all_called.update(callees)
@@ -202,7 +202,7 @@ class PyCallFlow:
         visited.remove(func_name)
     
     def _print_reverse_tree(self, func_name: str, show_line_numbers: bool):
-        """打印反向調用樹(誰調用了這個函數)"""
+        """打印反向調用樹（誰調用了這個函數）"""
         # 建立反向調用圖
         reverse_graph: Dict[str, Set[str]] = defaultdict(set)
         for caller, callees in self.call_graph.items():
@@ -241,7 +241,7 @@ class PyCallFlow:
         visited.remove(func_name)
     
     def export_dot(self, output_file: str = "callgraph.dot"):
-        """導出 Graphviz DOT 格式,可用 graphviz 生成圖片"""
+        """導出 Graphviz DOT 格式，可用 graphviz 生成圖片"""
         with open(output_file, 'w', encoding='utf-8') as f:
             f.write("digraph CallGraph {\n")
             f.write("    rankdir=LR;\n")
@@ -269,14 +269,14 @@ Examples:
   %(prog)s script.py                    # 分析單個文件
   %(prog)s src/                         # 分析整個目錄
   %(prog)s script.py -f main           # 只顯示 main 函數的調用樹
-  %(prog)s script.py -r -f process     # 反向顯示(誰調用了 process)
+  %(prog)s script.py -r -f process     # 反向顯示（誰調用了 process）
   %(prog)s script.py --dot             # 導出 DOT 格式圖形
         """
     )
     
     parser.add_argument("path", help="Python 文件或目錄路徑")
     parser.add_argument("-f", "--function", help="指定要分析的根函數")
-    parser.add_argument("-d", "--depth", type=int, default=10, help="最大顯示深度(預設:10)")
+    parser.add_argument("-d", "--depth", type=int, default=10, help="最大顯示深度（預設：10）")
     parser.add_argument("-r", "--reverse", action="store_true", help="反向顯示調用關係")
     parser.add_argument("--no-line-numbers", action="store_true", help="不顯示行號")
     parser.add_argument("--dot", help="導出 DOT 格式到指定文件")
