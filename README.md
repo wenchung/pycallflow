@@ -20,6 +20,8 @@ No external dependencies required - only Python 3.6+ standard library.
 ```bash
 git clone https://github.com/wenchung/pycallflow.git
 cd pycallflow
+
+# Make executable (Linux/macOS)
 chmod +x pycflow.py
 ```
 
@@ -28,20 +30,23 @@ chmod +x pycflow.py
 ### Basic Usage
 
 ```bash
-# Analyze a single file
+# Run as executable (Linux/macOS)
+./pycflow.py script.py
+
+# Or run with Python (all platforms)
 python pycflow.py script.py
 
 # Analyze from a specific function
-python pycflow.py script.py -f main
+./pycflow.py script.py -f main
 
 # Show reverse call tree (who calls this function)
-python pycflow.py script.py -r -f process_data
+./pycflow.py script.py -r -f process_data
 
 # Control depth
-python pycflow.py script.py -f main -d 3
+./pycflow.py script.py -f main -d 3
 
 # Export to Graphviz
-python pycflow.py script.py --dot output.dot
+./pycflow.py script.py --dot output.dot
 dot -Tpng output.dot -o callgraph.png
 ```
 
@@ -95,7 +100,7 @@ optional arguments:
 
 ```bash
 # See the tool's own structure
-python pycflow.py pycflow.py -f main
+./pycflow.py pycflow.py -f main
 
 # Output:
 main() [pycflow.py:290]
