@@ -103,33 +103,39 @@ optional arguments:
 ./pycflow.py pycflow.py -f main
 
 # Output:
-main() [pycflow.py:290]
-    PyCallFlow() [pycflow.py:138]
-    analyzer.analyze_file() [pycflow.py:165]
-        CallFlowAnalyzer() [pycflow.py:28]
-        open()
-        ast.parse()
-        analyzer.visit()
-    analyzer.print_call_tree() [pycflow.py:204]
-        self._print_tree() [pycflow.py:216]
-            self._print_tree() [pycflow.py:216] <recursive>
+main() [pycflow.py:360]
+    parse_arguments() [pycflow.py:337]
+        ArgumentParser()
+        ArgumentParser.add_argument()
+        ArgumentParser.parse_args()
+    CallFlowAnalyzer() [pycflow.py:25]
+    CallFlowAnalyzer.analyze() [pycflow.py:117]
+        os.path.isfile()
+        CallFlowAnalyzer._analyze_file() [pycflow.py:93]
+        ...
 ```
 
-## Contributing
+## Support This Project
 
-Contributions welcome! Feel free to:
-- Report bugs
-- Suggest new features
-- Submit pull requests
+If you find PyCallFlow useful, please consider supporting its development!
+
+[![Sponsor](https://img.shields.io/badge/Sponsor-GitHub%20Sponsors-pink?logo=github)](https://github.com/sponsors/wenchung)
+
+Your sponsorship helps:
+- Maintain and improve the tool
+- Add new features and enhancements
+- Provide better documentation and support
+- Keep the project actively developed
+
+You can also:
+- ⭐ Star this repository
+- 🐛 Report bugs or suggest features via [Issues](https://github.com/wenchung/pycallflow/issues)
+- 🔧 Contribute code via Pull Requests
 
 ## License
 
-MIT License - see LICENSE file for details
+MIT License - see LICENSE file for details.
 
-## Author
+## Contributing
 
-Created by wenchung
-
-## Acknowledgments
-
-Inspired by the classic Unix `cflow` tool for C programs.
+Contributions are welcome! Please feel free to submit a Pull Request.
